@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sobia ♥</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #faf8f5;
+            --rose: #d4a5a5;
+            --deep-rose: #9d6b6b;
+            --gold: #d4af37;
+            --charcoal: #2d2d2d;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: float-hearts 8s infinite ease-in-out;
+        }
+
+        @keyframes float-hearts {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: linear-gradient(135deg, rgba(212, 165, 165, 0.1) 0%, rgba(250, 248, 245, 1) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 165, 165, 0.12) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .initial-letter {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(120px, 20vw, 200px);
+            font-weight: 300;
+            color: var(--rose);
+            line-height: 1;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInScale 1.5s ease-out forwards;
+            text-shadow: 2px 2px 20px rgba(212, 165, 165, 0.3);
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 600;
+            color: var(--deep-rose);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+            max-width: 600px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2s forwards, bounce 2s ease-in-out 3s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator::before {
+            content: '♥';
+            font-size: 2rem;
+            color: var(--rose);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .scroll-indicator::after {
+            content: 'Keep scrolling';
+            font-size: 0.9rem;
+            color: var(--deep-rose);
+            display: block;
+            font-weight: 300;
+        }
+
+        /* Story sections */
+        .story-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .story-section:nth-child(even) {
+            background: linear-gradient(to bottom, var(--cream) 0%, rgba(212, 165, 165, 0.05) 100%);
+        }
+
+        .story-content {
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .story-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--deep-rose);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .story-content p {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 2;
+            color: var(--charcoal);
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .story-content .highlight {
+            color: var(--deep-rose);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Decorative elements */
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 3rem auto;
+        }
+
+        .ornament {
+            font-size: 2rem;
+            color: var(--rose);
+            margin: 2rem 0;
+        }
+
+        /* The question section */
+        .question-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            background: radial-gradient(circle at center, rgba(212, 165, 165, 0.15) 0%, var(--cream) 100%);
+            position: relative;
+        }
+
+        .question-content {
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s ease-out;
+        }
+
+        .question-content.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .question-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--deep-rose);
+            margin-bottom: 3rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .ring-container {
+            font-size: 5rem;
+            margin: 3rem 0;
+            animation: ring-shine 2s ease-in-out infinite;
+        }
+
+        @keyframes ring-shine {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            }
+            50% {
+                transform: scale(1.1) rotate(15deg);
+                filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.8));
+            }
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1.5rem 4rem;
+            font-size: 1.3rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, var(--deep-rose) 0%, var(--rose) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(157, 107, 107, 0.3);
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(157, 107, 107, 0.5);
+        }
+
+        .btn-no {
+            background: transparent;
+            color: var(--deep-rose);
+            border: 2px solid var(--rose);
+            position: relative;
+        }
+
+        .btn-no:hover {
+            transform: translateX(100px);
+        }
+
+        /* Celebration overlay */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 165, 165, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .celebration.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .celebration-content {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .celebration-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin-bottom: 2rem;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .celebration-content p {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-weight: 300;
+        }
+
+        /* Animations */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .answer-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                padding: 1.2rem 3rem;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="initial-letter">S</div>
+            <h1>Sobia</h1>
+            <p class="hero-subtitle">My love, my life, my everything</p>
+            <div class="scroll-indicator"></div>
+        </section>
+
+        <!-- Story Section 1 -->
+        <section class="story-section">
+            <div class="story-content">
+                <h2>From the First Moment</h2>
+                <div class="divider"></div>
+                <p>
+                    From the moment I met you, I knew my life would never be the same. 
+                    Your smile lit up my world, and your laughter became my favorite sound.
+                </p>
+                <div class="ornament">❦</div>
+            </div>
+        </section>
+
+        <!-- Story Section 2 -->
+        <section class="story-section">
+            <div class="story-content">
+                <h2>Every Day With You</h2>
+                <div class="divider"></div>
+                <p>
+                    Every moment we've shared has been a treasure. The way you understand me, 
+                    support me, and love me has made me the <span class="highlight">luckiest person alive</span>.
+                </p>
+                <div class="ornament">❦</div>
+            </div>
+        </section>
+
+        <!-- Story Section 3 -->
+        <section class="story-section">
+            <div class="story-content">
+                <h2>You Are My Forever</h2>
+                <div class="divider"></div>
+                <p>
+                    In you, I've found my <span class="highlight">best friend</span>, 
+                    my <span class="highlight">soulmate</span>, and my <span class="highlight">home</span>. 
+                    I can't imagine spending a single day without you by my side.
+                </p>
+                <div class="ornament">❦</div>
+            </div>
+        </section>
+
+        <!-- Question Section -->
+        <section class="question-section">
+            <div class="question-content">
+                <h2>Sobia,</h2>
+                <div class="ring-container">💍</div>
+                <h2>Will You Marry Me?</h2>
+                <div class="answer-buttons">
+                    <button class="btn btn-yes" onclick="celebrate()">Yes! ♥</button>
+                    <button class="btn btn-no" onmouseover="moveButton(this)">No</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Celebration Overlay -->
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <h2>She said YES! ♥♥♥</h2>
+            <p>I love you more than words can say, Sobia!</p>
+            <p>Forever and always ♥</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartSymbols = ['♥', '♡', '❤', '💕', '💖'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.color = `hsl(${Math.random() * 30 + 340}, 50%, 65%)`;
+                container.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 8000);
+            }, 500);
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-content, .question-content').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Make "No" button run away
+        function moveButton(button) {
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 100);
+            button.style.position = 'fixed';
+            button.style.left = x + 'px';
+            button.style.top = y + 'px';
+        }
+
+        // Celebration when she says yes
+        function celebrate() {
+            const celebration = document.getElementById('celebration');
+            celebration.classList.add('active');
+            
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Smooth scroll for indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.story-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Initialize
+        createHearts();
+    </script>
+</body>
+</html>
